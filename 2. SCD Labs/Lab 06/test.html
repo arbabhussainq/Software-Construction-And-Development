@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Form Validation</title>
+    <style>
+      body {
+        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .container {
+        padding: 20px;
+        border-radius: 10px;
+        width: 300px;
+      }
+      input {
+        width: 100%;
+        padding: 10px;
+        margin: 10px 0;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+      }
+      .error {
+        color: red;
+        font-size: 14px;
+      }
+      button {
+        background: #28a745;
+        color: white;
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        width: 108%;
+      }
+      button:hover {
+        background: #218838;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h2>Signup Form</h2>
+      <form id="signupForm" action="success.html">
+        <label>Email:</label>
+        <input type="text" id="email" placeholder="Enter your email" />
+        <p class="error" id="emailError"></p>
+
+        <label>Phone Number:</label>
+        <input type="text" id="phone" placeholder="Enter your phone number" />
+        <p class="error" id="phoneError"></p>
+
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+
+    <script>
+      document
+        .getElementById("signupForm")
+        .addEventListener("submit", function (event) {
+          let isValid = true;
+
+          // Email Validation
+          let email = document.getElementById("email").value;
+          let emailError = document.getElementById("emailError");
+          let emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+          if (!emailPattern.test(email)) {
+            emailError.textContent = "Please enter a valid email address.";
+            isValid = false;
+          } else {
+            emailError.textContent = "";
+          }
+
+          // Phone Number Validation
+          let phone = document.getElementById("phone").value;
+          let phoneError = document.getElementById("phoneError");
+
+          if (!/^[0-9]{12}$/.test(phone)) {
+            phoneError.textContent =
+              "Please enter a valid 12-digit phone number.";
+            isValid = false;
+          } else {
+            phoneError.textContent = "";
+          }
+
+          if (!isValid) {
+            event.preventDefault(); // Prevent form submission if validation fails
+          }
+        });
+    </script>
+  </body>
+</html>
